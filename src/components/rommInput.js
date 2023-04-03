@@ -62,11 +62,13 @@ const RoomInput = () => {
 
         dataToUpdateState.updateRevenuePremiumRooms = pRTR
         dataToUpdateState.updateRevenueEconomyRooms = eRTR
-        dataToUpdateState.updateTotalRevenue = pRTR + eRTR
+        dataToUpdateState.updateTotalRevenue = Number(pRTR + eRTR)
 
         dataToUpdateState.updateOccupiedPremiumRooms = pR
         dataToUpdateState.updateOccupiedEconomyRooms = eR
     }
+
+    console.log(dataToUpdateState)
 
 
     if (guestsOverEqual100.length >= premiumRooms) {
@@ -150,7 +152,9 @@ const RoomInput = () => {
                 let potentialGuestsToStayInEconomyRooms = guestsUnder100.slice(0, guestsUnder100.length - upgradedGuests.length)
 
                 let whoCanStayInEconomyRoom = potentialGuestsToStayInEconomyRooms.slice(potentialGuestsToStayInEconomyRooms.length - howManyGuestsCanStayInEconomyRooms)
-
+                console.log(
+                    'dadsadsdsadsadsadsdsadsadsadada'
+                )
                 update(premiumRoomsTotalRevenue + upgradedGuestsTotalRevenue, whoCanStayInEconomyRoom, occupiedPremium + howManyGuestWillUpgradeToPremiumRooms, economyRooms)
 
 
