@@ -11,14 +11,3 @@ export const submitReservationForm = createAction('room/submit', function update
 })
 
 
-/*
-export const updateRevenuePremiumRooms = createAction('revenue/updatePremium', function updatePRR(revenue){
-
-    console.log(revenue)
-
-    return{
-        payload: revenue
-    }
-})
-*/
-
