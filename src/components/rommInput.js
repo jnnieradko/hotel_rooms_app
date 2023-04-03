@@ -77,7 +77,7 @@ const RoomInput = () => {
     }
 
 
-    if (guestsOverEqual100.length === premiumRooms) {
+/*    if (guestsOverEqual100.length === premiumRooms) {
         console.log("TC 1")
         console.log("Guests over 100: " + guestsOverEqual100.length)
         console.log("Guests under 100: " + guestsUnder100.length)
@@ -92,14 +92,9 @@ const RoomInput = () => {
             console.log(guestsOverEqual100)
             const economyRoomsTotalRevenue = guestsUnder100.reduce((total, num) => total + num)
 
-            /*                dataToUpdateState.updateRevenuePremiumRooms = premiumRoomsTotalRevenue
-                            dataToUpdateState.updateRevenueEconomyRooms = economyRoomsTotalRevenue
-                            dataToUpdateState.updateTotalRevenue =premiumRoomsRevenue + economyRoomsTotalRevenue
+            let freeEconomyRooms = economyRooms - guestsUnder100.length
 
-                            dataToUpdateState.updateOccupiedPremiumRooms = premiumRooms
-                            dataToUpdateState.updateOccupiedEconomyRooms = economyRooms*/
-
-            update(premiumRoomsTotalRevenue, economyRoomsTotalRevenue, premiumRooms, economyRooms)
+            update(premiumRoomsTotalRevenue, economyRoomsTotalRevenue, premiumRooms, economyRooms-freeEconomyRooms)
 
         } else if (guestsUnder100.length > economyRooms) {
             console.log("TC 1b")
@@ -110,19 +105,21 @@ const RoomInput = () => {
             if (whoCanStay.length > 0) {
                 const economyRoomsTotalRevenue = whoCanStay.reduce((total, num) => total + num)
                 console.log(economyRoomsTotalRevenue)
-                update(premiumRoomsTotalRevenue, economyRoomsTotalRevenue, premiumRooms, economyRoomsRevenue)
-            } else if (whoCanStay <= 0) {
-                update(premiumRoomsTotalRevenue, whoCanStay, premiumRooms, economyRoomsRevenue)
+                update(premiumRoomsTotalRevenue, economyRoomsTotalRevenue, premiumRooms, economyRooms)
+            } else if (whoCanStay.length <= 0) {
+                update(premiumRoomsTotalRevenue, whoCanStay, premiumRooms, economyRooms)
             }
-        }
+        }*/
         //..............................................................................................
-    } else if (guestsOverEqual100.length > premiumRooms) {
+    /*} else*/ if (guestsOverEqual100.length >= premiumRooms) {
         console.log(" TC 2")
 
-        const whoPremiumCanStay = guestsOverEqual100.slice(guestsOverEqual100.length - premiumRooms)
-        if (whoPremiumCanStay.length > 0) {
+        const whoFromPremiumGuestsCanStay = guestsOverEqual100.slice(guestsOverEqual100.length - premiumRooms)
+        console.log(whoFromPremiumGuestsCanStay)
+
+        if (whoFromPremiumGuestsCanStay.length > 0) {
             console.log("TC 2a")
-            const premiumRoomsTotalRevenue = whoPremiumCanStay.reduce((total, num) => total + num)
+            const premiumRoomsTotalRevenue = whoFromPremiumGuestsCanStay.reduce((total, num) => total + num)
             console.log(premiumRoomsTotalRevenue)
 
             if (guestsUnder100.length <= economyRooms) {
@@ -131,9 +128,10 @@ const RoomInput = () => {
                 console.log(guestsOverEqual100)
                 const economyRoomsTotalRevenue = guestsUnder100.reduce((total, num) => total + num)
 
-                let freeRooms = economyRooms - guestsUnder100.length
+                let freeEconomyRooms = economyRooms - guestsUnder100.length
+                console.log(freeEconomyRooms)
 
-                update(premiumRoomsTotalRevenue, economyRoomsTotalRevenue, premiumRooms, economyRooms - freeRooms)
+                update(premiumRoomsTotalRevenue, economyRoomsTotalRevenue, premiumRooms, economyRooms - freeEconomyRooms)
 
             } else if (guestsUnder100.length > economyRooms) {
                 console.log("TC 1b")
@@ -145,15 +143,15 @@ const RoomInput = () => {
                     const economyRoomsTotalRevenue = whoCanStay.reduce((total, num) => total + num)
                     console.log(economyRoomsTotalRevenue)
                     update(premiumRoomsTotalRevenue, economyRoomsTotalRevenue, premiumRooms, economyRooms)
-                } else if (whoCanStay <= 0) {
-                    update(premiumRoomsTotalRevenue, whoCanStay, premiumRooms, economyRoomsRevenue)
+                } else if (whoCanStay.length <= 0) {
+                    update(premiumRoomsTotalRevenue, whoCanStay, premiumRooms, economyRooms)
                 }
             }
 
-        } else if (whoPremiumCanStay <= 0) {
+        } else if (whoFromPremiumGuestsCanStay.length <= 0) {
             console.log("TC 2b")
 
-            console.log(whoPremiumCanStay)
+            console.log(whoFromPremiumGuestsCanStay)
 
             if (guestsUnder100.length <= economyRooms) {
                 console.log("TC 1a")
@@ -161,7 +159,10 @@ const RoomInput = () => {
                 console.log(guestsOverEqual100)
                 const economyRoomsTotalRevenue = guestsUnder100.reduce((total, num) => total + num)
 
-                update(whoPremiumCanStay, economyRoomsTotalRevenue, premiumRooms, economyRooms)
+                let freeEconomyRooms = economyRooms - guestsUnder100.length
+                console.log(freeEconomyRooms)
+
+                update(whoFromPremiumGuestsCanStay, economyRoomsTotalRevenue, premiumRooms, economyRooms-freeEconomyRooms)
 
             } else if (guestsUnder100.length > economyRooms) {
                 console.log("TC 1b")
@@ -172,17 +173,20 @@ const RoomInput = () => {
                 if (whoCanStay.length > 0) {
                     const economyRoomsTotalRevenue = whoCanStay.reduce((total, num) => total + num)
                     console.log(economyRoomsTotalRevenue)
-                    update(whoPremiumCanStay, economyRoomsTotalRevenue, premiumRooms, economyRoomsRevenue)
-                } else if (whoCanStay <= 0) {
-                    update(whoPremiumCanStay, whoCanStay, premiumRooms, economyRoomsRevenue)
+                    update(whoFromPremiumGuestsCanStay, economyRoomsTotalRevenue, premiumRooms, economyRooms)
+                } else if (whoCanStay.length <= 0) {
+                    console.log(whoCanStay)
+                    update(whoFromPremiumGuestsCanStay, whoCanStay, premiumRooms, economyRooms)
                 }
             }
         }
     } //..............................................................................................
     else if (guestsOverEqual100.length < premiumRooms) {
         console.log("TC 3")
-        let extraRooms = premiumRooms - guestsOverEqual100.length
-        console.log(extraRooms)
+        let freePremiumRooms = premiumRooms - guestsOverEqual100.length
+        let occupiedPremium = guestsOverEqual100.length
+        console.log(occupiedPremium)
+        console.log(freePremiumRooms)
 
         let premiumRoomsTotalRevenue = guestsOverEqual100.reduce((total, num) => total + num)
 
@@ -193,38 +197,69 @@ const RoomInput = () => {
             console.log(guestsOverEqual100)
             const economyRoomsTotalRevenue = guestsUnder100.reduce((total, num) => total + num)
 
-            update(premiumRoomsTotalRevenue, economyRoomsTotalRevenue, premiumRooms - extraRooms, economyRooms - extraRooms)
+            let freeEconomyRooms = economyRooms - guestsUnder100.length
+            console.log(freeEconomyRooms)
+
+            update(premiumRoomsTotalRevenue, economyRoomsTotalRevenue, premiumRooms - freePremiumRooms, economyRooms - freeEconomyRooms)
 
         } else if (guestsUnder100.length > economyRooms) {
 
             let howManyGuestsCanStayInEconomyRooms = economyRooms
             console.log(howManyGuestsCanStayInEconomyRooms)
 
-            let howManyGuestsCanUpgradeToPremiumRooms = extraRooms
-            console.log(howManyGuestsCanUpgradeToPremiumRooms)
+            let howManyGuestNotFitEconomyRooms = guestsUnder100.length-economyRooms
+            console.log(howManyGuestNotFitEconomyRooms)
+            
+            if(freePremiumRooms>howManyGuestNotFitEconomyRooms){
+                let howManyGuestWillUpgradeToPremiumRooms = howManyGuestNotFitEconomyRooms
+                console.log(howManyGuestWillUpgradeToPremiumRooms)
+
+                let upgradedGuests = guestsUnder100.slice(guestsUnder100.length - howManyGuestWillUpgradeToPremiumRooms)
+                console.log(upgradedGuests)
+
+                let upgradedGuestsTotalRevenue = upgradedGuests.reduce((total, num) => total + num)
+                console.log(upgradedGuestsTotalRevenue)
+
+                let potentialGuestsToStayInEconomyRooms = guestsUnder100.slice(0, guestsUnder100.length - upgradedGuests.length)
+                console.log(potentialGuestsToStayInEconomyRooms) //suma
+
+                let whoCanStayInEconomyRoom = potentialGuestsToStayInEconomyRooms.slice(potentialGuestsToStayInEconomyRooms.length-howManyGuestsCanStayInEconomyRooms)
+                console.log(whoCanStayInEconomyRoom)
+
+                update(premiumRoomsTotalRevenue + upgradedGuestsTotalRevenue, whoCanStayInEconomyRoom, occupiedPremium+howManyGuestWillUpgradeToPremiumRooms, economyRooms)
 
 
-            let upgradedGuestsTotalRevenue = guestsUnder100.slice(guestsUnder100.length - extraRooms).reduce((total, num) => total + num)
-            console.log(upgradedGuestsTotalRevenue)
 
-            let potentialGuestsToStayInEconomyRooms = guestsUnder100.slice(0, guestsUnder100.length - howManyGuestsCanUpgradeToPremiumRooms)
-            console.log(potentialGuestsToStayInEconomyRooms) //suma
+            } else if (freePremiumRooms<=howManyGuestNotFitEconomyRooms){
+                let howManyGuestWillUpgradeToPremiumRooms = freePremiumRooms
+                console.log(howManyGuestWillUpgradeToPremiumRooms)
 
+                let upgradedGuests = guestsUnder100.slice(guestsUnder100.length - howManyGuestWillUpgradeToPremiumRooms)
+                console.log(upgradedGuests)
 
-            if (howManyGuestsCanStayInEconomyRooms > 0) {
+                let upgradedGuestsTotalRevenue = upgradedGuests.reduce((total, num) => total + num)
+                console.log(upgradedGuestsTotalRevenue)
 
-                let whoIsHighestPayingInEconomy = potentialGuestsToStayInEconomyRooms.slice(potentialGuestsToStayInEconomyRooms.length - howManyGuestsCanStayInEconomyRooms)
-                console.log(whoIsHighestPayingInEconomy)
+                let potentialGuestsToStayInEconomyRooms = guestsUnder100.slice(0, guestsUnder100.length - upgradedGuests.length)
+                console.log(potentialGuestsToStayInEconomyRooms) //suma
 
-                let economyRoomsTotalRevenue = whoIsHighestPayingInEconomy.reduce((total, num) => total + num)
-                console.log(economyRoomsTotalRevenue)
+                let whoCanStayInEconomyRoom = potentialGuestsToStayInEconomyRooms.slice(potentialGuestsToStayInEconomyRooms.length-howManyGuestsCanStayInEconomyRooms)
+                console.log(whoCanStayInEconomyRoom)
 
-                update(premiumRoomsTotalRevenue + upgradedGuestsTotalRevenue, economyRoomsTotalRevenue, premiumRooms, economyRooms)
+                if (whoCanStayInEconomyRoom.length >0){
 
+                    let economyRoomsTotalRevenue = whoCanStayInEconomyRoom.reduce((total, num) => total + num)
+                    console.log(economyRoomsTotalRevenue)
 
-            } else if (howManyGuestsCanStayInEconomyRooms <= 0) {
+                    update(premiumRoomsTotalRevenue + upgradedGuestsTotalRevenue, economyRoomsTotalRevenue, occupiedPremium+howManyGuestWillUpgradeToPremiumRooms, economyRooms)
 
-                update(premiumRoomsTotalRevenue + upgradedGuestsTotalRevenue, howManyGuestsCanStayInEconomyRooms, premiumRooms, economyRooms)
+                }else if (whoCanStayInEconomyRoom.length <=0){
+
+                    console.log("ddsdsds")
+                    update(premiumRoomsTotalRevenue + upgradedGuestsTotalRevenue, whoCanStayInEconomyRoom, occupiedPremium+howManyGuestWillUpgradeToPremiumRooms, economyRooms)
+
+                }
+
 
 
             }
