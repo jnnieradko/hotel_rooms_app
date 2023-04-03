@@ -12,6 +12,8 @@ import {
     selectorOccupiedPremiumRooms,
     selectorOccupiedEconomyRooms
 } from "../store/rooms/selectors";
+import {main_styles} from "../styles/main_styles.css"
+
 
 const RoomInput = () => {
 
@@ -39,6 +41,7 @@ const RoomInput = () => {
 
     const [premiumRooms, setPremiumRooms] = useState(0);
     const [economyRooms, setEconomyRooms] = useState(0);
+    const [showResults, setResults] = useState(false)
 
     const dataToUpdateState = {
         numberOfPremiumRooms: premiumRooms,
@@ -180,7 +183,6 @@ const RoomInput = () => {
     //..............................................................
 
 
-
     const handlePremiumRoomsChange = (event) => {
         setPremiumRooms(parseInt(event.target.value));
     };
@@ -192,35 +194,57 @@ const RoomInput = () => {
     const handleSubmit = (event) => {
         event.preventDefault();
         dispatch(submitReservationForm(dataToUpdateState))
+        setResults(true)
     };
 
     return (
-        <form onSubmit={handleSubmit}>
-            <label>
-                Premium Rooms:
-                <input
-                    value={premiumRooms}
-                    placeholder="please fill"
-                    onChange={handlePremiumRoomsChange}
-                />
-            </label>
-            <label>
-                Economy Rooms:
-                <input
-                    value={economyRooms}
-                    placeholder="please fill"
-                    onChange={handleEconomyRoomsChange}
-                />
-            </label>
-            <button type="submit">Calculate Profit & Occupancy</button>
-            <div>Premium rooms revenue: {premiumRoomsRevenue} </div>
-            <div>Economy rooms revenue: {economyRoomsRevenue} </div>
-            <div>Total revenue: {totalRevenue} </div>
-            <div>Occupied Premium rooms: {occupiedPremiumRooms}</div>
-            <div>Occupied Economy rooms: {occupiedEconomyRooms}</div>
+        <>
+            <div className={"container"}>
+                <header className={"header"}>
+                    <div>Joanna Nieradko - Coding Challenge</div>
+                </header>
+                <div className={"main"}>
+                    <form className={"form-containter"} onSubmit={handleSubmit}>
+                        <label className={"inputLabel"}>
+                            Premium Rooms:
+                            <input
+                                className={"inputField"}
+                                type={"text"}
+                                value={premiumRooms}
+                                placeholder="please fill"
+                                onChange={handlePremiumRoomsChange}
+                            />
+                        </label>
+                        <label className={"inputLabel"}>
+                            Economy Rooms:
+                            <input
+                                className={"inputField"}
+                                type={"text"}
+                                value={economyRooms}
+                                placeholder="please fill"
+                                onChange={handleEconomyRoomsChange}
+                            />
+                        </label>
+                        <button id={"calculate"} type="submit">Calculate Profit & Occupancy</button>
+                    </form>
 
+                </div>
+                <div id="result" className={`wrapper ${showResults ? 'visible' : 'hidden'}`}>
+                    <div className="single-line">
+                        <div className={"resultLabel"} > Premium rooms revenue: {premiumRoomsRevenue} € </div>
+                        <div className={"resultLabel"}>Economy rooms revenue: {economyRoomsRevenue} €</div>
+                        <div className={"resultLabel"}>Total revenue: {totalRevenue} €</div>
+                    </div>
+                </div>
+                <div id="result" className={`wrapper ${showResults ? 'visible' : 'hidden'}`}>
+                    <div className="single-line">
+                        <div className={"resultLabel"}>Occupied Premium rooms: {occupiedPremiumRooms}</div>
+                        <div className={"resultLabel"}>Occupied Economy rooms: {occupiedEconomyRooms}</div>
+                    </div>
+                </div>
+            </div>
+        </>
 
-        </form>
     )
 
 }
