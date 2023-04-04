@@ -17,10 +17,22 @@ This will start the development server, and you should be able to view the proje
 
 2. Navigate to the project root directory and run the following command to run the Cypress tests:
 
-`npm run cypress:run`
+`npm run cy:run`
 
-This will run the tests in headless mode, meaning that you won't see the Cypress test runner interface. If you prefer to run the tests with the test runner interface, you can run the following command instead:
+This will run the tests in headless mode, meaning that you won't see the Cypress test runner interface. 
+
+If you prefer to run the tests with the test runner interface, you can run the following command instead:
+
 
 `npm run cypress:open`
 
 This will open the Cypress test runner interface, where you can select and run individual tests.
+Choose the option E2E Testing and then your Browser.
+
+
+Then `Start E2E Testing`
+
+
+Click on a test file to expand it and see the individual test cases.
+
+To run an individual test case, click on it in the test file list. This will open a new window with the Cypress test runner interface and run the selected test case.
