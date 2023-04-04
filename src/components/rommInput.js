@@ -212,6 +212,7 @@ const RoomInput = () => {
                         <label className={"inputLabel"}>
                             Premium Rooms:
                             <input
+                                data-cy="premium-input"
                                 className={"inputField"}
                                 type={"text"}
                                 value={premiumRooms}
@@ -222,6 +223,7 @@ const RoomInput = () => {
                         <label className={"inputLabel"}>
                             Economy Rooms:
                             <input
+                                data-cy="economy-input"
                                 className={"inputField"}
                                 type={"text"}
                                 value={economyRooms}
@@ -229,21 +231,21 @@ const RoomInput = () => {
                                 onChange={handleEconomyRoomsChange}
                             />
                         </label>
-                        <button id={"calculate"} type="submit">Calculate Profit & Occupancy</button>
+                        <button id={"calculate"} type="submit" data-cy="calculate-button">Calculate Profit & Occupancy</button>
                     </form>
 
                 </div>
                 <div id="result" className={`wrapper ${showResults ? 'visible' : 'hidden'}`}>
                     <div className="single-line">
-                        <div className={"resultLabel"} > Premium rooms revenue: {premiumRoomsRevenue} € </div>
-                        <div className={"resultLabel"}>Economy rooms revenue: {economyRoomsRevenue} €</div>
-                        <div className={"resultLabel"}>Total revenue: {totalRevenue} €</div>
+                        <div className={"resultLabel"} data-cy="premium-revenue" >Premium rooms revenue: {premiumRoomsRevenue} €</div>
+                        <div className={"resultLabel"} data-cy="economy-revenue">Economy rooms revenue: {economyRoomsRevenue} €</div>
+                        <div className={"resultLabel"} data-cy="total-revenue">Total revenue: {totalRevenue} €</div>
                     </div>
                 </div>
                 <div id="result" className={`wrapper ${showResults ? 'visible' : 'hidden'}`}>
                     <div className="single-line">
-                        <div className={"resultLabel"}>Occupied Premium rooms: {occupiedPremiumRooms}</div>
-                        <div className={"resultLabel"}>Occupied Economy rooms: {occupiedEconomyRooms}</div>
+                        <div className={"resultLabel"} data-cy="occupied-premium">Occupied Premium rooms: {occupiedPremiumRooms}</div>
+                        <div className={"resultLabel"} data-cy="occupied-economy">Occupied Economy rooms: {occupiedEconomyRooms}</div>
                     </div>
                 </div>
             </div>
