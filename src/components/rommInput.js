@@ -44,8 +44,8 @@ const RoomInput = () => {
     const [showResults, setResults] = useState(false)
 
     const dataToUpdateState = {
-        numberOfPremiumRooms: premiumRooms,
-        numberOfEconomyRooms: economyRooms,
+        numberOfPremiumRooms: +premiumRooms,
+        numberOfEconomyRooms: +economyRooms,
         updateOccupiedPremiumRooms: occupiedPremiumRooms,
         updateOccupiedEconomyRooms: occupiedEconomyRooms,
         updateRevenuePremiumRooms: premiumRoomsRevenue,
@@ -67,8 +67,6 @@ const RoomInput = () => {
         dataToUpdateState.updateOccupiedPremiumRooms = pR
         dataToUpdateState.updateOccupiedEconomyRooms = eR
     }
-
-    console.log(dataToUpdateState)
 
 
     if (guestsOverEqual100.length >= premiumRooms) {
@@ -152,9 +150,7 @@ const RoomInput = () => {
                 let potentialGuestsToStayInEconomyRooms = guestsUnder100.slice(0, guestsUnder100.length - upgradedGuests.length)
 
                 let whoCanStayInEconomyRoom = potentialGuestsToStayInEconomyRooms.slice(potentialGuestsToStayInEconomyRooms.length - howManyGuestsCanStayInEconomyRooms)
-                console.log(
-                    'dadsadsdsadsadsadsdsadsadsadada'
-                )
+
                 update(premiumRoomsTotalRevenue + upgradedGuestsTotalRevenue, whoCanStayInEconomyRoom, occupiedPremium + howManyGuestWillUpgradeToPremiumRooms, economyRooms)
 
 
@@ -188,11 +184,25 @@ const RoomInput = () => {
 
 
     const handlePremiumRoomsChange = (event) => {
-        setPremiumRooms(parseInt(event.target.value));
+        const inputValue = event.target.value;
+        const intValue = parseInt(inputValue);
+
+        if (isNaN(intValue)) {
+            setPremiumRooms("");
+        } else {
+            setPremiumRooms(intValue);
+        }
     };
 
     const handleEconomyRoomsChange = (event) => {
-        setEconomyRooms(parseInt(event.target.value));
+        const inputValue = event.target.value;
+        const intValue = parseInt(inputValue);
+
+        if (isNaN(intValue)) {
+            setEconomyRooms("");
+        } else {
+            setEconomyRooms(intValue);
+        }
     };
 
     const handleSubmit = (event) => {
@@ -216,7 +226,7 @@ const RoomInput = () => {
                                 className={"inputField"}
                                 type={"text"}
                                 value={premiumRooms}
-                                placeholder="please fill"
+                                placeholder="please provide number"
                                 onChange={handlePremiumRoomsChange}
                             />
                         </label>
@@ -227,25 +237,32 @@ const RoomInput = () => {
                                 className={"inputField"}
                                 type={"text"}
                                 value={economyRooms}
-                                placeholder="please fill"
+                                placeholder="please provide number"
                                 onChange={handleEconomyRoomsChange}
                             />
                         </label>
-                        <button id={"calculate"} type="submit" data-cy="calculate-button">Calculate Profit & Occupancy</button>
+                        <button id={"calculate"} type="submit" data-cy="calculate-button">Calculate Profit & Occupancy
+                        </button>
                     </form>
 
                 </div>
                 <div id="result" className={`wrapper ${showResults ? 'visible' : 'hidden'}`}>
                     <div className="single-line">
-                        <div className={"resultLabel"} data-cy="premium-revenue" >Premium rooms revenue: {premiumRoomsRevenue} €</div>
-                        <div className={"resultLabel"} data-cy="economy-revenue">Economy rooms revenue: {economyRoomsRevenue} €</div>
+                        <div className={"resultLabel"} data-cy="premium-revenue">Premium rooms
+                            revenue: {premiumRoomsRevenue} €
+                        </div>
+                        <div className={"resultLabel"} data-cy="economy-revenue">Economy rooms
+                            revenue: {economyRoomsRevenue} €
+                        </div>
                         <div className={"resultLabel"} data-cy="total-revenue">Total revenue: {totalRevenue} €</div>
                     </div>
                 </div>
                 <div id="result" className={`wrapper ${showResults ? 'visible' : 'hidden'}`}>
                     <div className="single-line">
-                        <div className={"resultLabel"} data-cy="occupied-premium">Occupied Premium rooms: {occupiedPremiumRooms}</div>
-                        <div className={"resultLabel"} data-cy="occupied-economy">Occupied Economy rooms: {occupiedEconomyRooms}</div>
+                        <div className={"resultLabel"} data-cy="occupied-premium">Occupied Premium
+                            rooms: {occupiedPremiumRooms}</div>
+                        <div className={"resultLabel"} data-cy="occupied-economy">Occupied Economy
+                            rooms: {occupiedEconomyRooms}</div>
                     </div>
                 </div>
             </div>
